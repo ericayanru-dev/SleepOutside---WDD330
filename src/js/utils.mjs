@@ -5,11 +5,14 @@ export function qs(selector, parent = document) {
 // or a more concise version if you are into that sort of thing:
 // export const qs = (selector, parent = document) => parent.querySelector(selector);
 
-// retrieve data from localstorage
+// ************* MIRROR FUNCTIONS ************
+// RETRIEVE FROM LOCAL STORAGE
 export function getLocalStorage(key) {
   return JSON.parse(localStorage.getItem(key));
 }
-// save data to local storage
+
+
+// SAVING DATA TO LOCAL STORAGE: SAVES KEY-VALUE PAIRS
 export function setLocalStorage(key, data) {
   localStorage.setItem(key, JSON.stringify(data));
 }
