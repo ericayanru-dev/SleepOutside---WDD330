@@ -8,9 +8,9 @@ export function qs(selector, parent = document) {
 // ************* MIRROR FUNCTIONS ************
 // RETRIEVE FROM LOCAL STORAGE
 export function getLocalStorage(key) {
-  return JSON.parse(localStorage.getItem(key));
+  const data = localStorage.getItem(key);
+  return data ? JSON.parse(data) : [];
 }
-
 
 // SAVING DATA TO LOCAL STORAGE: SAVES KEY-VALUE PAIRS
 export function setLocalStorage(key, data) {
