@@ -8,9 +8,9 @@ export function qs(selector, parent = document) {
 // ************* MIRROR FUNCTIONS ************
 // RETRIEVE FROM LOCAL STORAGE
 export function getLocalStorage(key) {
-  return JSON.parse(localStorage.getItem(key));
+  const data = localStorage.getItem(key);
+  return data ? JSON.parse(data) : [];
 }
-
 
 // SAVING DATA TO LOCAL STORAGE: SAVES KEY-VALUE PAIRS
 export function setLocalStorage(key, data) {
@@ -23,4 +23,20 @@ export function setClick(selector, callback) {
     callback();
   });
   qs(selector).addEventListener("click", callback);
+}
+
+export function getParam(param)
+{
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  const product = urlParams.get(param)
+  return product
+}
+
+export function renderListWithTemplate(templateFn, parentElement, list, position = "afterbegin", clear = false) {
+  const htmlStrings = list.map(templateFn)
+  if (clear) {
+    parentElement.innerHTML = "";
+  }
+  parentElement.insertAdjacentHTML(position, htmlStrings.join(''));
 }
