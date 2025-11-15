@@ -4,6 +4,16 @@ function renderCartContents() {
   const cartItems = getLocalStorage("so-cart");
   const htmlItems = cartItems.map((item) => cartItemTemplate(item));
   document.querySelector(".product-list").innerHTML = htmlItems.join("");
+  let total = 0;
+  
+  if (cartItems && cartItems.length > 0) {
+     cartItems.forEach(element => {
+       let price = element.FinalPrice;
+       total += price
+     });
+    document.querySelector("#total").innerHTML = total
+    document.querySelector("#hide").classList.toggle("show", true)
+  }
 }
 
 function cartItemTemplate(item) {
