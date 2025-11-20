@@ -1,6 +1,7 @@
-import { getLocalStorage } from "./utils.mjs";
+import { getLocalStorage, loadHeaderFooter } from "./utils.mjs";
 import ShoppingCart from "./ShoppingCart.mjs";
 
+loadHeaderFooter();
 
 const cartListElement = document.querySelector("#cart-list");
 const cart = new ShoppingCart("so-cart", cartListElement);
@@ -14,7 +15,7 @@ function renderCartContents() {
   
   if (cartItems && cartItems.length > 0) {
      cartItems.forEach(element => {
-       let price = element.FinalPrice;
+       let price = element.ListPrice;
        total += price
      });
     document.querySelector("#total").innerHTML = total
@@ -26,7 +27,7 @@ function cartItemTemplate(item) {
   const newItem = `<li class="cart-card divider">
   <a href="#" class="cart-card__image">
     <img
-      src="${item.Image}"
+      src="${item.Images.PrimaryMedium}"
       alt="${item.Name}"
     />
   </a>
