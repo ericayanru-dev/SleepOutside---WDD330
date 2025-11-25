@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
   renderCartContents();
 });
 
-function renderCartContents() {
+export function renderCartContents() {
   const cartItems = getLocalStorage("so-cart") || [];
   const htmlItems = cartItems.map((item) => cartItemTemplate(item));
   const productListEl = document.querySelector(".product-list");
