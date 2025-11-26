@@ -9,15 +9,15 @@
     <title>Sleep Outside | Checkout</title>
 
     <link rel="stylesheet" href="../css/style.css" />
-    <script defer src="../js/CheckoutProcess.mjs"></script>
+    <script src="../js/checkout.js" type="module"></script>
   </head>
 
   <body>
     <header class="divider">
       <div class="logo">
-        <img src="images/noun_Tent_2517.svg" alt="tent image for logo" />
+        <img src="../images/noun_Tent_2517.svg" alt="tent image for logo" />
 
-        <a href="index.html">
+        <a href="/index.html">
           Sleep
           <span class="highlight">Outside</span>
         </a>
@@ -108,15 +108,22 @@
             </label>
           </fieldset>
           <fieldset class="checkout-summary">
-          <div class="cart-footer hide" id="hide">
-            <p class="card-total">Items<span id="num-items"></span></p>
-            <p class="cart-total">Subtotal:$<span id="total"></span></p>
-            <p class="cart-total">Tax:$<span id="tax"></span></p>
-            <p class="cart-total">Shipping Estimate:$<span id="shipping-estimate"></span> </p>
-            <p class="cart-total">Order Total:$<span id="order-total"></span> </p>
+           <legend>Order Summary</legend>
+
+          <div class="checkout-summary">
+            <div>Items</div>
+            <div id="num-items"></div>
+            <div>Subtotal</div>
+            <div id="cartTotal"></div>
+            <div>Tax</div>
+            <div id="tax"></div>
+            <div>Shipping</div>
+            <div id="shipping"></div>
+            <div>Total</div>
+            <div id="orderTotal"></div>
           </div>
-          </fieldset>
-          <input type="submit" value="Check Out">
+        </fieldset>
+        <button type="submit" id="checkoutSubmit">Checkout</button>
         </form>
       </section>
     </main>
