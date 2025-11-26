@@ -15,12 +15,11 @@ function formDataToJSON(formElement) {
 
 function packageItems(items) {
   const simplifiedItems = items.map((item) => {
-    console.log(item);
     return {
       id: item.Id,
       price: item.FinalPrice,
       name: item.Name,
-      quantity: 1,
+      quantity: item.quantity,
     };
   });
   return simplifiedItems;
@@ -44,18 +43,25 @@ export default class CheckoutProcess {
   }
 
   calculateItemSummary() {
-    // calculate and display the total amount of the items in the cart, and the number of items.
     const summaryElement = document.querySelector(
       this.outputSelector + " #cartTotal"
     );
-    const itemNumElement = document.querySelector(
+    let itemNumElement = document.querySelector(
       this.outputSelector + " #num-items"
     );
-    itemNumElement.innerText = this.list.length;
+
+    // Sum the quantities
+    const totalItems = this.list.reduce((sum, item) => sum + item.quantity, 0);
+    itemNumElement.textContent = totalItems;
+
+    // Calculate total price
+    const totalAmount = this.list.reduce((sum, item) => sum + item.FinalPrice * item.quantity, 0);
+    summaryElement.textContent = `$${totalAmount.toFixed(2)}`;
+    
     // calculate the total of all the items in the cart
     const amounts = this.list.map((item) => item.FinalPrice);
     this.itemTotal = amounts.reduce((sum, item) => sum + item);
-    summaryElement.innerText = `$${this.itemTotal}`;;
+    summaryElement.innerText = `$${this.itemTotal.toFixed(2)}`;;
   }
 
   calculateOrderTotal() {
@@ -83,21 +89,42 @@ export default class CheckoutProcess {
   }
 
   async checkout() {
-    const formElement = document.forms["checkout"];
-    const order = formDataToJSON(formElement);
+  const formElement = document.forms["checkout"];
 
-    order.orderDate = new Date().toISOString();
-    order.orderTotal = this.orderTotal;
-    order.tax = this.tax;
-    order.shipping = this.shipping;
-    order.items = packageItems(this.list);
-    //console.log(order);
+  const formData = formDataToJSON(formElement);
 
-    try {
-      const response = await services.checkout(order);
-      console.log(response);
-    } catch (err) {
-      console.log(err);
-    }
+  const order = {
+    orderDate: new Date().toISOString(),
+    orderTotal: this.orderTotal,
+    tax: this.tax,
+    items: packageItems(this.list),
+      fname: formData.fname,
+      lname: formData.lname,
+    address: {
+      street:formData.street,
+      city: formData.city,
+      state: formData.state,
+      zip: formData.zip,
+    },
+      cardNumber: formData.cardNumber,
+      expiration: formData.expiration,
+      securityCode: formData.securitycode
+    };
+    console.log("FORM DATA:", formData);
+    console.log("ORDER SENT:", JSON.stringify(order, null, 2));
+
+
+  try {
+    const response = await services.checkout(order);
+    console.log("Order success:", response);
+
+    // Clear the cart
+    localStorage.removeItem(this.key);
+
+    // Redirect to success page
+    window.location.href = "./success.html";
+  } catch (err) {
+    console.log(err);
   }
+}
 }
