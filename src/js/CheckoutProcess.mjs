@@ -40,6 +40,7 @@ export default class CheckoutProcess {
   init() {
     this.list = getLocalStorage(this.key);
     this.calculateItemSummary();
+    this.calculateOrderTotal();
   }
 
   calculateItemSummary() {
