@@ -157,10 +157,12 @@ button {
 }
 
 .product-list {
-  display: flex;
-  flex-flow: row wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   list-style-type: none;
-  justify-content: center;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
 }
 
 .product-list a {
@@ -270,3 +272,13 @@ footer {
 .show{
   display: block;
 }
+
+.alert-message {
+  background-color: #f44336;
+  color: white;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
