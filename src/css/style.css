@@ -157,12 +157,10 @@ button {
 }
 
 .product-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  display: flex;
+  flex-flow: row wrap;
   list-style-type: none;
-  justify-content: space-between;
-  align-items: center;
-  gap: 1rem;
+  justify-content: center;
 }
 
 .product-list a {
@@ -282,3 +280,23 @@ footer {
   font-weight: bold;
 }
 
+.product{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  list-style-type: none;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.remove-item {
+  color: red;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  padding-left: 10px;
+}
+
+.remove-item:hover {
+  color: darkred;
+}
